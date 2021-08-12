@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin :: Catalog Items</title>
+</head>
+<body>
+    <div th:each="it : ${items}" style="display: flex;">
+        <div th:text="${it.id} + ':  '"></div>
+        <div th:text="${it.name} + ' -  '"></div>
+        <div th:text="${it.description} + ' ::  '"></div>
+        <div th:text="${it.price}"></div>
+    </div>
+    <div>
+        <form th:action="@{/_admin/catalog}" th:object="${newItem}" method="post">
+            <input type="text" placeholder="Catalog Name" th:field="*{name}">
+            <input type="text" placeholder="Description" th:field="*{description}">
+            <input type="text" placeholder="Price" th:field="*{price}">
+            <select th:field="*{subcategory.id}">
+                <th:block th:each="sub : ${subcategories}" >
+                    <option th:value="${sub.id}" th:text="${sub.name}"></option>
+                </th:block>
+            </select>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+</body>
+</html>
